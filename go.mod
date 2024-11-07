@@ -4,7 +4,6 @@ go 1.23.1
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/skyrocketOoO/GoUtils v0.0.1
 	gorm.io/gorm v1.25.12
 )
 
