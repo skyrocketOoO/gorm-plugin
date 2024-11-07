@@ -58,7 +58,7 @@ func GenerateStruct(structType reflect.Type) string {
 
 	structBody := ""
 	for _, field := range structFields {
-		structBody += fmt.Sprintf("\t%s interface{}\n", field)
+		structBody += fmt.Sprintf("\t%s any\n", field)
 	}
 	return fmt.Sprintf("type %sQ struct {\n%s}", structType.Name(), structBody)
 }

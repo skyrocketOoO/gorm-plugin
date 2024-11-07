@@ -1,16 +1,16 @@
 package main
 
 type AccountQ struct {
-	ID interface{}
-	CreatedAt interface{}
-	UpdatedAt interface{}
-	DeletedAt interface{}
-	UserName interface{}
-	State interface{}
-	HashPass interface{}
-	Salt interface{}
-	DisplayName interface{}
-	PhoneNumber interface{}
-	AddressVal interface{}
-	RoleID interface{}
+	ID          any
+	CreatedAt   any
+	UpdatedAt   any
+	DeletedAt   any
+	UserName    any
+	State       any
+	HashPass    any
+	Salt        any
+	DisplayName any
+	PhoneNumber any
+	AddressVal  any
+	RoleID      any
 }
