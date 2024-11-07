@@ -26,3 +26,12 @@ func DecodeTag(tagString string) TagVal {
 
 	return tagVal
 }
+
+func InSlice(List []string, target string) bool {
+	for _, v := range List {
+		if v == target {
+			return true
+		}
+	}
+	return false
+}

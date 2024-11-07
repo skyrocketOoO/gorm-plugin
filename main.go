@@ -29,6 +29,9 @@ func GenerateStruct(structType reflect.Type) string {
 		if field.Anonymous {
 			tag := field.Tag
 			tagVal := DecodeTag(tag.Get("gorm"))
+			if !InSlice(tagVal.List, "embedded") {
+				continue
+			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
 					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
@@ -39,6 +42,9 @@ func GenerateStruct(structType reflect.Type) string {
 		if field.Type.Kind() == reflect.Struct {
 			tag := field.Tag
 			tagVal := DecodeTag(tag.Get("gorm"))
+			if !InSlice(tagVal.List, "embedded") {
+				continue
+			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
 					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
@@ -47,7 +53,6 @@ func GenerateStruct(structType reflect.Type) string {
 			continue
 		}
 
-		// Create field definition with interface{} type
 		structFields = append(structFields, fieldName)
 	}
 
@@ -66,6 +71,9 @@ func genEmbedded(structType reflect.StructField) []string {
 		if field.Anonymous {
 			tag := field.Tag
 			tagVal := DecodeTag(tag.Get("gorm"))
+			if !InSlice(tagVal.List, "embedded") {
+				continue
+			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
 					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
@@ -76,6 +84,9 @@ func genEmbedded(structType reflect.StructField) []string {
 		if field.Type.Kind() == reflect.Struct {
 			tag := field.Tag
 			tagVal := DecodeTag(tag.Get("gorm"))
+			if !InSlice(tagVal.List, "embedded") {
+				continue
+			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
 					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
