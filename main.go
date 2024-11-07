@@ -4,14 +4,12 @@ import (
 	"fmt"
 	"os"
 	"reflect"
-	"strings"
 
 	"test/internal/model"
 
 	"gorm.io/gorm"
 )
 
-// GenerateStruct generates a struct definition with `interface{}` types
 func GenerateStruct(structType reflect.Type) string {
 	var structFields []string
 
@@ -22,14 +20,20 @@ func GenerateStruct(structType reflect.Type) string {
 
 		// Handle gorm.Model fields specifically
 		if fieldType == reflect.TypeOf(gorm.Model{}) {
-			structFields = append(structFields, "\tID interface{}")
-			structFields = append(structFields, "\tCreatedAt interface{}")
-			structFields = append(structFields, "\tUpdatedAt interface{}")
-			structFields = append(structFields, "\tDeletedAt interface{}")
+			structFields = append(structFields, "ID")
+			structFields = append(structFields, "CreatedAt")
+			structFields = append(structFields, "UpdatedAt")
+			structFields = append(structFields, "DeletedAt")
 			continue
 		}
 		if field.Anonymous {
-			structFields = append(structFields, genEmbedded(field)...)
+			tag := field.Tag
+			tagVal := DecodeTag(tag.Get("gorm"))
+			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
+				for _, embeddedField := range genEmbedded(field) {
+					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+				}
+			}
 			continue
 		}
 		if field.Type.Kind() == reflect.Struct {
@@ -37,19 +41,21 @@ func GenerateStruct(structType reflect.Type) string {
 			tagVal := DecodeTag(tag.Get("gorm"))
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
-					structFields = append(structFields, fmt.Sprintf("  %s%s", prefix, embeddedField[1:]))
+					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
 				}
 			}
 			continue
 		}
 
 		// Create field definition with interface{} type
-		structFields = append(structFields, fmt.Sprintf("\t%s interface{}", fieldName))
+		structFields = append(structFields, fieldName)
 	}
 
-	// Join fields to form the struct body
-	structBody := strings.Join(structFields, "\n")
-	return fmt.Sprintf("type %sQ struct {\n%s\n}", structType.Name(), structBody)
+	structBody := ""
+	for _, field := range structFields {
+		structBody += fmt.Sprintf("\t%s interface{}\n", field)
+	}
+	return fmt.Sprintf("type %sQ struct {\n%s}", structType.Name(), structBody)
 }
 
 func genEmbedded(structType reflect.StructField) []string {
@@ -58,19 +64,28 @@ func genEmbedded(structType reflect.StructField) []string {
 		field := structType.Type.Field(i)
 		fieldName := field.Name
 		if field.Anonymous {
-			structFields = append(structFields, genEmbedded(field)...)
+			tag := field.Tag
+			tagVal := DecodeTag(tag.Get("gorm"))
+			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
+				for _, embeddedField := range genEmbedded(field) {
+					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+				}
+			}
+			continue
 		}
 		if field.Type.Kind() == reflect.Struct {
 			tag := field.Tag
 			tagVal := DecodeTag(tag.Get("gorm"))
-			if _, ok := tagVal.Map["embeddedPrefix"]; ok {
-				structFields = append(structFields, genEmbedded(field)...)
+			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
+				for _, embeddedField := range genEmbedded(field) {
+					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+				}
 			}
 			continue
 		}
 
 		// Create field definition with interface{} type
-		structFields = append(structFields, fmt.Sprintf("\t%s interface{}", fieldName))
+		structFields = append(structFields, fieldName)
 	}
 	return structFields
 }

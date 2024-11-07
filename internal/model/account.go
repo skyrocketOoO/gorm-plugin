@@ -13,12 +13,16 @@ type (
 		Salt        []byte `gorm:"not null"`
 		DisplayName string `gorm:"not null"`
 		Phone       Phone  `gorm:"embedded;embeddedPrefix:Phone"`
-
-		RoleID uint
-		Role   Role `gorm:"foreignKey:RoleID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+		Address     `gorm:"embedded;embeddedPrefix:Address"`
+		RoleID      uint
+		Role        Role `gorm:"foreignKey:RoleID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	}
 )
 
 type Phone struct {
 	Number string
+}
+
+type Address struct {
+	Val string
 }
