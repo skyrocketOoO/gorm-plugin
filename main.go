@@ -115,7 +115,9 @@ func main() {
 	try := struct {
 		UserName string
 	}{}
-	db.Debug().Model(&model.Account{}).Where("State = ?", "abc").Scan(&try)
+	db.Debug().Model(&model.Account{
+		UserName: "abc",
+	}).Where("State > ?", "abc").Select("UserName").Scan(&try)
 	fmt.Println(try)
 }
 

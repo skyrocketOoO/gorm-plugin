@@ -1,8 +1,16 @@
 # gorm-enhance-plugin
 
-# Target
-- Solve the hard code when use db.Where(field = ?) to avoid runtime error and support global modify
-- When use db.Where(&struct{a: 0}) where a is int, it will be igonre because of zero value
+## Issue
+- Need to use SELECT(colume) which is also exist on output 
+- Hard code column name and operator
+- .Table will use hard code table name but .Model need to init
+
+## Target
+- Anyone is plugin
+- Gen column definiton code which avoid hard code
+- Define Operator to avoid hard code
+- Auto add .Select from output
+- 
 
 ## TODO
 - Parse column with various case
