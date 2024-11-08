@@ -7,6 +7,7 @@ import (
 
 	"test/internal/model"
 
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -102,6 +103,23 @@ func genEmbedded(structType reflect.StructField) []string {
 }
 
 func main() {
+	db, err := gorm.Open(sqlite.Open("./sqlite.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// Migrate the schema
+	// db.AutoMigrate(&model.Account{}, &model.Role{}, &model.Store{})
+
+	// account := model.Account{}
+	try := struct {
+		UserName string
+	}{}
+	db.Debug().Model(&model.Account{}).Where("State = ?", "abc").Scan(&try)
+	fmt.Println(try)
+}
+
+func gen() {
 	// Get the type of the Account struct
 	accountType := reflect.TypeOf(model.Account{})
 
