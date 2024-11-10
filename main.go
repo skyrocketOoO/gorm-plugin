@@ -5,6 +5,7 @@ import (
 	"os"
 	"reflect"
 
+	"test/columnname"
 	"test/internal/model"
 
 	"gorm.io/driver/sqlite"
@@ -35,7 +36,10 @@ func GenerateStruct(structType reflect.Type) string {
 			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
-					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+					structFields = append(
+						structFields,
+						fmt.Sprintf("%s%s", prefix, embeddedField),
+					)
 				}
 			}
 			continue
@@ -48,7 +52,10 @@ func GenerateStruct(structType reflect.Type) string {
 			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
-					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+					structFields = append(
+						structFields,
+						fmt.Sprintf("%s%s", prefix, embeddedField),
+					)
 				}
 			}
 			continue
@@ -77,7 +84,10 @@ func genEmbedded(structType reflect.StructField) []string {
 			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
-					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+					structFields = append(
+						structFields,
+						fmt.Sprintf("%s%s", prefix, embeddedField),
+					)
 				}
 			}
 			continue
@@ -90,7 +100,10 @@ func genEmbedded(structType reflect.StructField) []string {
 			}
 			if prefix, ok := tagVal.Map["embeddedPrefix"]; ok {
 				for _, embeddedField := range genEmbedded(field) {
-					structFields = append(structFields, fmt.Sprintf("%s%s", prefix, embeddedField))
+					structFields = append(
+						structFields,
+						fmt.Sprintf("%s%s", prefix, embeddedField),
+					)
 				}
 			}
 			continue
@@ -107,18 +120,27 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
+	// db.Create(&model.Role{Name: "abc"})
 
 	// Migrate the schema
 	// db.AutoMigrate(&model.Account{}, &model.Role{}, &model.Store{})
 
 	// account := model.Account{}
-	try := struct {
-		UserName string
-	}{}
-	db.Debug().Model(&model.Account{
-		UserName: "abc",
-	}).Where("State > ?", "abc").Select("UserName").Scan(&try)
-	fmt.Println(try)
+	var result []map[string]interface{}
+	db.Debug().Model(&model.Role{}).Scan(&result)
+	// fmt.Println(result[0])
+
+	// columns, _ := GenColumnCodes.GetColumns(db, "accounts")
+	// fmt.Println(GenColumnCodes.GenColumnFieldsCode("Account", columns))
+
+	// fmt.Println(tablename.GenTableNamesCode(db, "gen/tablename/tablename.go"))
+	fmt.Println(
+		columnname.GenTableColumnNamesCode(
+			db,
+			[]string{"roles"},
+			"gen/columnname/columnname.go",
+		),
+	)
 }
 
 func gen() {

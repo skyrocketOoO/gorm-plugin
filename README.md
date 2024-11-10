@@ -1,12 +1,12 @@
 # gorm-enhance-plugin
+The purpose of this module is to enhance the gorm on each aspect without influent origin method to make sure flexibility.
 
-## Issue
+## Considerations of Gorm
 - Need to use SELECT(colume) which is also exist on output 
 - Hard code column name and operator
-- .Table will use hard code table name but .Model need to init
+- .Table will use hard code table name but .Model need to initialize the model which may influent performance
 
 ## Target
-- Anyone is plugin
 - Gen column definiton code which avoid hard code
 - Define Operator to avoid hard code
 - Auto add .Select from output
