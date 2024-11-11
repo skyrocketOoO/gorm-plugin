@@ -10,5 +10,5 @@ columnname.GenTableColumnNamesCode(db, tableNames, path)
 ![alt text](image.png)
 ```
 var db *gorm.DB
-db.Where(? = ?, columnname.Roles.ID, 1)
+db.Where(? = ?, column.Roles.ID, 1)
 ```

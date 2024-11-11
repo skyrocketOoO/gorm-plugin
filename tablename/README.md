@@ -10,5 +10,5 @@ columnname.GenTableNamesCode(db, path)
 ![alt text](image.png)
 ```
 var db *gorm.DB
-db.Model(tablename.Roles)
+db.Model(table.Roles)
 ```
