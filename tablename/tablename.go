@@ -8,12 +8,12 @@ import (
 	"gorm.io/gorm"
 )
 
-func getTableNames(db *gorm.DB) (tableNames []string, err error) {
+func GetTableNames(db *gorm.DB) (tableNames []string, err error) {
 	return db.Migrator().GetTables()
 }
 
 func GenTableNamesCode(db *gorm.DB, path string) error {
-	tableNames, err := getTableNames(db)
+	tableNames, err := GetTableNames(db)
 	if err != nil {
 		return err
 	}
