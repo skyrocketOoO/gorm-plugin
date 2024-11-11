@@ -7,36 +7,10 @@ var Roles = struct {
 	CreatedAt string
 	UpdatedAt string
 	DeletedAt string
-	Name string
-	PageRolecreate string
-	PageRoleread string
-	PageRoleupdate string
-	PageRoledelete string
-	PageSettingcreate string
-	PageSettingread string
-	PageSettingupdate string
-	PageSettingdelete string
-	PageAccountcreate string
-	PageAccountread string
-	PageAccountupdate string
-	PageAccountdelete string
 }{
 	Id: "Id",
 	CreatedAt: "CreatedAt",
 	UpdatedAt: "UpdatedAt",
 	DeletedAt: "DeletedAt",
-	Name: "Name",
-	PageRolecreate: "PageRolecreate",
-	PageRoleread: "PageRoleread",
-	PageRoleupdate: "PageRoleupdate",
-	PageRoledelete: "PageRoledelete",
-	PageSettingcreate: "PageSettingcreate",
-	PageSettingread: "PageSettingread",
-	PageSettingupdate: "PageSettingupdate",
-	PageSettingdelete: "PageSettingdelete",
-	PageAccountcreate: "PageAccountcreate",
-	PageAccountread: "PageAccountread",
-	PageAccountupdate: "PageAccountupdate",
-	PageAccountdelete: "PageAccountdelete",
 }
 
