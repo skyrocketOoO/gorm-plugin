@@ -1,4 +1,6 @@
-module test
+module github.com/skyrocketOoO/gorm-enhance-plugin
+
+replace github.com/skyrocketOoO/gorm-enhance-plugin => .
 
 go 1.23.1
 

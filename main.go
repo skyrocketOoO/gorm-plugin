@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"test/columnname"
-	"test/example/model"
+	"github.com/skyrocketOoO/gorm-enhance-plugin/columnname"
+	"github.com/skyrocketOoO/gorm-enhance-plugin/example/model"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
