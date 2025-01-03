@@ -1,7 +1,6 @@
-package cmp
+package ope
 
 const (
-	// Comparison operators
 	Eq    = "="
 	Neq   = "!="
 	Gt    = ">"

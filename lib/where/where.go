@@ -1,13 +1,13 @@
-package q
+package wh
 
 import (
 	"fmt"
 
-	cmp "github.com/skyrocketOoO/gorm-enhance-plugin/compare"
+	ope "github.com/skyrocketOoO/gorm-enhance-plugin/lib/operator"
 )
 
 func B(field string, oper string) string {
-	if oper == cmp.Bt || oper == cmp.NBt {
+	if oper == ope.Bt || oper == ope.NBt {
 		return fmt.Sprintf("%s %s ? AND ?", field, oper)
 	}
 	return fmt.Sprintf("%s %s ?", field, oper)
@@ -15,7 +15,7 @@ func B(field string, oper string) string {
 
 // used for subquery
 func BSub(field string, oper string) string {
-	if oper == cmp.Bt || oper == cmp.NBt {
+	if oper == ope.Bt || oper == ope.NBt {
 		return fmt.Sprintf("%s %s (?) AND (?)", field, oper)
 	}
 	return fmt.Sprintf("%s %s (?)", field, oper)
