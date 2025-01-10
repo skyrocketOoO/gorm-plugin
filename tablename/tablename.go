@@ -3,7 +3,7 @@ package tablename
 import (
 	"strings"
 
-	"github.com/skyrocketOoO/gorm-plugin/utils"
+	"github.com/skyrocketOoO/gormx/utils"
 
 	"gorm.io/gorm"
 )

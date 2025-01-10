@@ -1,6 +1,6 @@
-module github.com/skyrocketOoO/gorm-plugin
+module github.com/skyrocketOoO/gormx
 
-replace github.com/skyrocketOoO/gorm-plugin => .
+replace github.com/skyrocketOoO/gormx => .
 
 go 1.23.1
 

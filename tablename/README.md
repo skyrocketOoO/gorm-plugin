@@ -2,7 +2,7 @@ Generate the column name code to use without hard code column name
 
 ## How to generate code
 ```
-import "github.com/skyrocketOoO/gorm-plugin/tablename"
+import "github.com/skyrocketOoO/gormx/tablename"
 columnname.GenTableNamesCode(db, path)
 ```
 

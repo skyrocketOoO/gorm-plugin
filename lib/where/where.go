@@ -3,7 +3,7 @@ package wh
 import (
 	"fmt"
 
-	ope "github.com/skyrocketOoO/gorm-plugin/lib/operator"
+	ope "github.com/skyrocketOoO/gormx/lib/operator"
 )
 
 func B(field string, oper string) string {

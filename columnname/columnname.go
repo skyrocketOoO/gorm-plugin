@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/skyrocketOoO/gorm-plugin/utils"
+	"github.com/skyrocketOoO/gormx/utils"
 
 	"gorm.io/gorm"
 )

@@ -1,8 +1,8 @@
 package scope
 
 import (
-	ope "github.com/skyrocketOoO/gorm-plugin/lib/operator"
-	wh "github.com/skyrocketOoO/gorm-plugin/lib/where"
+	ope "github.com/skyrocketOoO/gormx/lib/operator"
+	wh "github.com/skyrocketOoO/gormx/lib/where"
 	"gorm.io/gorm"
 )
 
